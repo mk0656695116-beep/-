@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ห้องทดลองระบบย่อยอาหาร | วิทยาศาสตร์ ม.5</title>
+<style>
+:root{--ink:#18324b;--muted:#60758a;--teal:#087f8c;--mint:#dff7ef;--gold:#ffd166;--coral:#f47c67;--paper:#f4f8fb;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Tahoma,"Noto Sans Thai",sans-serif;line-height:1.55}
+header{background:linear-gradient(120deg,#123b5d,#087f8c);color:white;padding:28px 18px 32px}
+.wrap{max-width:1100px;margin:auto}header .tag{display:inline-block;background:#ffffff24;border:1px solid #ffffff55;border-radius:999px;padding:5px 12px;font-size:.88rem}
+h1{font-size:clamp(1.7rem,4vw,2.6rem);margin:12px 0 6px}header p{margin:0;max-width:760px;color:#e8f8ff}
+main{max-width:1100px;margin:22px auto;padding:0 16px 40px}.grid{display:grid;grid-template-columns: minmax(280px,.9fr) minmax(320px,1.1fr);gap:18px}
+.panel{background:white;border:1px solid #dce7ee;border-radius:18px;padding:20px;box-shadow:0 5px 18px #17344a0b;margin-bottom:18px}
+h2{font-size:1.25rem;margin:0 0 12px}h3{font-size:1.03rem;margin:15px 0 8px}
+.note{background:#edf8fa;border-left:4px solid var(--teal);padding:11px 13px;border-radius:8px;font-size:.94rem}
+.controls label{display:flex;justify-content:space-between;gap:10px;font-weight:bold;margin-top:14px}.controls output{color:var(--teal);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--teal);cursor:pointer}.small{color:var(--muted);font-size:.88rem}
+button{border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:bold;cursor:pointer;background:var(--teal);color:white}button.secondary{background:#e8f0f5;color:var(--ink)}button:focus,input:focus{outline:3px solid #ffd166;outline-offset:2px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.metricrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.metric{background:#f3f8fb;border-radius:12px;padding:11px;text-align:center}.metric strong{display:block;font-size:1.25rem;color:var(--teal)}.metric span{font-size:.8rem;color:var(--muted)}
+canvas{display:block;width:100%;height:auto;background:#f8fbfd;border-radius:12px;border:1px solid #e1ebf0}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin:8px 0}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}.step{border-radius:10px;background:#eef3f7;padding:10px 5px;text-align:center;font-size:.85rem}.step.active{background:#d8f5eb;box-shadow:inset 0 0 0 2px #4ab99b}.step b{display:block;font-size:1rem}
+table{width:100%;border-collapse:collapse;font-size:.92rem}th,td{text-align:left;padding:9px;border-bottom:1px solid #e3edf2}th{color:var(--muted)}
+.question{padding:14px 0;border-bottom:1px solid #e2ebf0}.question:last-child{border:0}.question p{font-weight:bold;margin:0 0 8px}.question label{display:block;padding:5px 0;cursor:pointer}.question input{margin-right:7px;accent-color:var(--teal)}.feedback{font-size:.9rem;margin-top:6px;font-weight:bold}.correct{color:#087443}.wrong{color:#b34232}.answerkey{display:none;background:#fff8df;border-radius:10px;padding:12px;margin-top:12px}.answerkey.show{display:block}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:10px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}.metricrow{grid-template-columns:repeat(3,1fr)}.panel{padding:16px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<span class="tag">สื่อโต้ตอบ • ชีววิทยา ม.5</span>
+<h1>ห้องทดลองระบบย่อยอาหาร</h1>
+<p>ทดลองปรับอุณหภูมิและความเป็นกรด–เบส เพื่อสังเกตผลต่อการทำงานของเอนไซม์ย่อยอาหาร วิเคราะห์กราฟ และทดสอบความเข้าใจ</p>
+</div></header>
+<main>
+<section class="panel">
+<h2>🎯 จุดประสงค์การเรียนรู้</h2>
+<ul>
+<li><b>ทดลอง:</b> ปรับตัวแปรจำลองเพื่อศึกษาการทำงานของเอนไซม์</li>
+<li><b>สังเกต:</b> เปรียบเทียบอัตราการย่อยและปริมาณสารตั้งต้นที่เหลือแบบเวลาจริง</li>
+<li><b>วิเคราะห์:</b> อธิบายความสัมพันธ์ของอุณหภูมิ ค่า pH และกิจกรรมของเอนไซม์</li>
+</ul>
+<div class="note"><b>คำถามนำ:</b> ถ้าเปลี่ยนอุณหภูมิหรือค่า pH เอนไซม์จะย่อยอาหารได้เร็วเท่าเดิมหรือไม่?</div>
+<p class="small">แบบจำลองเพื่อการเรียนรู้: ใช้เอนไซม์อะไมเลสเป็นตัวอย่าง โดยกำหนดค่าที่เหมาะสมใกล้ 37°C และ pH 7 ตัวเลขเป็นค่าจำลองเพื่อเปรียบเทียบ ไม่ใช่ข้อมูลการทดลองจริง</p>
+</section>
+
+<div class="grid">
+<section class="panel controls">
+<h2>🎚️ 1. ปรับตัวแปรการทดลอง</h2>
+<label for="temp">อุณหภูมิ <output id="tempOut">37°C</output></label>
+<input id="temp" type="range" min="0" max="80" value="37" step="1" aria-label="อุณหภูมิ">
+<div class="small">ช่วง 0–80°C</div>
+<label for="ph">ค่า pH <output id="phOut">7.0</output></label>
+<input id="ph" type="range" min="1" max="14" value="7" step=".5" aria-label="ค่า pH">
+<div class="small">ช่วง 1–14 (1 = กรดมาก, 7 = กลาง, 14 = เบสมาก)</div>
+<label for="food">ปริมาณแป้งเริ่มต้น <output id="foodOut">100 หน่วย</output></label>
+<input id="food" type="range" min="20" max="150" value="100" step="10" aria-label="ปริมาณแป้งเริ่มต้น">
+<div class="small">ปรับปริมาณสารตั้งต้นเพื่อดูผลต่อเวลาที่ใช้ย่อย</div>
+<div class="btnrow"><button id="runBtn">▶ เริ่มจำลอง</button><button class="secondary" id="resetBtn">↺ เริ่มใหม่</button></div>
+<p class="small">ปรับ slider ได้ระหว่างจำลอง ระบบจะคำนวณผลใหม่ทันที</p>
+</section>
+
+<section class="panel">
+<h2>🧪 2. สังเกตการย่อย</h2>
+<div class="steps" aria-label="เส้นทางอาหาร">
+<div class="step"><b>1</b>ปาก<br><span class="small">อะไมเลส</span></div>
+<div class="step"><b>2</b>กระเพาะ<br><span class="small">คลุกเคล้า</span></div>
+<div class="step"><b>3</b>ลำไส้เล็ก<br><span class="small">ย่อยต่อ</span></div>
+<div class="step"><b>4</b>ดูดซึม<br><span class="small">สารอาหาร</span></div>
+</div>
+<canvas id="scene" width="620" height="270" role="img" aria-label="ภาพจำลองสารตั้งต้นและเอนไซม์กำลังย่อย"></canvas>
+<div class="metricrow">
+<div class="metric"><strong id="rate">100%</strong><span>กิจกรรมเอนไซม์สัมพัทธ์</span></div>
+<div class="metric"><strong id="remaining">100</strong><span>แป้งคงเหลือ (หน่วย)</span></div>
+<div class="metric"><strong id="elapsed">0.0</strong><span>เวลา (วินาทีจำลอง)</span></div>
+</div>
+<p id="status" class="note" aria-live="polite">พร้อมทดลอง: กด “เริ่มจำลอง” เพื่อเริ่มดูการย่อย</p>
+</section>
+</div>
+
+<section class="panel">
+<h2>📈 3. วิเคราะห์กราฟแบบ Real-time</h2>
+<canvas id="chart" width="900" height="360" role="img" aria-label="กราฟแสดงปริมาณแป้งคงเหลือตามเวลา"></canvas>
+<div class="legend"><span><i class="dot" style="background:#087f8c"></i>แป้งคงเหลือ</span><span><i class="dot" style="background:#f47c67"></i>ปริมาณที่ย่อยแล้ว</span></div>
+<p class="small">แกนนอน = เวลาจำลอง (วินาที) • แกนตั้ง = ปริมาณแป้ง (หน่วย) กราฟจะเปลี่ยนเมื่อปรับตัวแปรหรือเริ่ม/หยุดการจำลอง</p>
+<table>
+<thead><tr><th>ตัวแปร</th><th>สิ่งที่ควบคุม</th><th>สิ่งที่สังเกต</th></tr></thead>
+<tbody>
+<tr><td>อุณหภูมิ</td><td>0–80°C</td><td>กิจกรรมเอนไซม์เปลี่ยนไปตามอุณหภูมิ</td></tr>
+<tr><td>pH</td><td>1–14</td><td>สภาวะกรด–เบสมีผลต่อรูปร่าง/การทำงานของเอนไซม์</td></tr>
+<tr><td>แป้งเริ่มต้น</td><td>20–150 หน่วย</td><td>ปริมาณสารตั้งต้นที่ต้องย่อย</td></tr>
+</tbody></table>
+</section>
+
+<section class="panel">
+<h2>📝 4. คำถามท้ายกิจกรรม (5 ข้อ)</h2>
+<p class="small">เลือกคำตอบที่ถูกที่สุด แล้วกด “ตรวจคำตอบ” เมื่อทำครบแล้วจะแสดงคะแนนและเฉลย</p>
+<form id="quiz">
+<div class="question"><p>ข้อ 1. ในแบบจำลองนี้ อุณหภูมิใดทำให้เอนไซม์อะไมเลสทำงานได้ดีที่สุด?</p>
+<label><input type="radio" name="q1" value="a"> 5°C</label><label><input type="radio" name="q1" value="b"> 37°C</label><label><input type="radio" name="q1" value="c"> 75°C</label><div class="feedback" id="f1"></div></div>
+<div class="question"><p>ข้อ 2. หาก pH เปลี่ยนจาก 7 ไปเป็น 2 คาดว่าจะเกิดอะไรขึ้นกับกิจกรรมของอะไมเลสในแบบจำลอง?</p>
+<label><input type="radio" name="q2" value="a"> เพิ่มขึ้นสูงสุด</label><label><input type="radio" name="q2" value="b"> ไม่เปลี่ยนแปลง</label><label><input type="radio" name="q2" value="c"> ลดลงมาก</label><div class="feedback" id="f2"></div></div>
+<div class="question"><p>ข้อ 3. เอนไซม์ในระบบย่อยอาหารมีหน้าที่หลักข้อใด?</p>
+<label><input type="radio" name="q3" value="a"> เร่งปฏิกิริยาเคมีในการย่อยอาหาร</label><label><input type="radio" name="q3" value="b"> สร้างอาหารใหม่จากน้ำ</label><label><input type="radio" name="q3" value="c"> ดูดซึมสารอาหารเข้าสู่เลือดโดยตรงทุกชนิด</label><div class="feedback" id="f3"></div></div>
+<div class="question"><p>ข้อ 4. ถ้าเพิ่มปริมาณแป้งเริ่มต้น แต่คงกิจกรรมเอนไซม์เท่าเดิม โดยทั่วไปจะเกิดอะไรขึ้น?</p>
+<label><input type="radio" name="q4" value="a"> มีแป้งให้ย่อยมากขึ้น จึงอาจใช้เวลานานขึ้น</label><label><input type="radio" name="q4" value="b"> แป้งหายไปทันที</label><label><input type="radio" name="q4" value="c"> เอนไซม์เปลี่ยนเป็นแป้ง</label><div class="feedback" id="f4"></div></div>
+<div class="question"><p>ข้อ 5. ข้อใดเป็นตัวแปรตามหลักของการทดลองนี้?</p>
+<label><input type="radio" name="q5" value="a"> สีของพื้นหลังหน้าจอ</label><label><input type="radio" name="q5" value="b"> กิจกรรมเอนไซม์และปริมาณแป้งที่เหลือ</label><label><input type="radio" name="q5" value="c"> ชื่อผู้ทดลอง</label><div class="feedback" id="f5"></div></div>
+<div class="btnrow"><button type="submit">ตรวจคำตอบ</button><button type="button" class="secondary" id="showAnswers">แสดง/ซ่อนเฉลย</button></div>
+<div id="score" class="note" style="margin-top:14px;display:none" aria-live="polite"></div>
+<div id="answerkey" class="answerkey"><b>เฉลยพร้อมเหตุผล</b><ol><li><b>37°C</b> — เป็นอุณหภูมิอ้างอิงที่กำหนดให้เหมาะสมในแบบจำลองนี้</li><li><b>ลดลงมาก</b> — pH ที่เป็นกรดมากไม่เหมาะกับอะไมเลสตัวอย่างนี้</li><li><b>เร่งปฏิกิริยาเคมีในการย่อยอาหาร</b> — เอนไซม์ช่วยเปลี่ยนโมเลกุลใหญ่ให้เป็นโมเลกุลเล็กลง</li><li><b>มีแป้งให้ย่อยมากขึ้น จึงอาจใช้เวลานานขึ้น</b> — เมื่ออัตราการย่อยเท่าเดิม ปริมาณตั้งต้นที่มากขึ้นต้องใช้เวลามากขึ้น</li><li><b>กิจกรรมเอนไซม์และปริมาณแป้งที่เหลือ</b> — เป็นผลที่วัดหรือสังเกตจากการเปลี่ยนตัวแปรต้น</li></ol></div>
+</form>
+</section>
+<footer>สื่อการเรียนรู้แบบจำลอง • ระบบย่อยอาหาร • วิทยาศาสตร์ระดับชั้นมัธยมศึกษาปีที่ 5</footer>
+</main>
+<script>
+const temp=document.getElementById('temp'), ph=document.getElementById('ph'), food=document.getElementById('food');
+const tempOut=document.getElementById('tempOut'),phOut=document.getElementById('phOut'),foodOut=document.getElementById('foodOut');
+const rateEl=document.getElementById('rate'),remainEl=document.getElementById('remaining'),elapsedEl=document.getElementById('elapsed'),statusEl=document.getElementById('status');
+const scene=document.getElementById('scene'),ctx=scene.getContext('2d'),chart=document.getElementById('chart'),g=chart.getContext('2d');
+let running=false, time=0, last=0, history=[], raf=null;
+function activity(){
+  const T=+temp.value, P=+ph.value;
+  // Illustrative teaching model: temperature optimum 37 C and pH optimum 7.
+  let thermal;
+  if(T<=37) thermal=Math.exp(-Math.pow((T-37)/24,2));
+  else thermal=Math.exp(-Math.pow((T-37)/17,2));
+  const acidity=Math.exp(-Math.pow((P-7)/3.15,2));
+  return Math.max(0,Math.min(1,thermal*acidity));
+}
+function updateLabels(){tempOut.textContent=temp.value+'°C';phOut.textContent=(+ph.value).toFixed(1);foodOut.textContent=food.value+' หน่วย'}
+function remainingAt(t){const a=activity();const k=0.018*a;return Math.max(0,+food.value*Math.exp(-k*t))}
+function drawScene(){
+ const w=scene.width,h=scene.height;ctx.clearRect(0,0,w,h);
+ const a=activity(), rem=remainingAt(time), total=+food.value, dig=total-rem;
+ ctx.fillStyle='#f8fbfd';ctx.fillRect(0,0,w,h);
+ ctx.fillStyle='#18324b';ctx.font='bold 19px Tahoma';ctx.fillText('แบบจำลองการย่อยแป้ง',22,30);
+ ctx.font='14px Tahoma';ctx.fillStyle='#60758a';ctx.fillText('เม็ดสีทอง = แป้ง  •  รูปตัว Y = เอนไซม์',22,53);
+ // vessel
+ ctx.beginPath();ctx.moveTo(35,80);ctx.lineTo(35,218);ctx.quadraticCurveTo(35,242,60,242);ctx.lineTo(560,242);ctx.quadraticCurveTo(585,242,585,218);ctx.lineTo(585,80);ctx.strokeStyle='#9bb7c7';ctx.lineWidth=3;ctx.stroke();
+ ctx.fillStyle='#e2f5f4';ctx.fillRect(38,145,544,94);
+ let n=Math.max(2,Math.round(rem/total*28));
+ for(let i=0;i<n;i++){let x=60+(i*73+Math.sin(i*9+time*1.4)*12)%500;let y=163+(i*37)%62;ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.fillStyle='#f3b942';ctx.fill();}
+ let enzymes=Math.max(1,Math.round(2+a*7));
+ for(let i=0;i<enzymes;i++){
+   let x=75+(i*61+Math.cos(i*2+time)*10)%460,y=112+(i*19)%22;
+   ctx.strokeStyle='#087f8c';ctx.lineWidth=4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x,y+10);ctx.lineTo(x,y);ctx.lineTo(x-8,y-9);ctx.moveTo(x,y);ctx.lineTo(x+8,y-9);ctx.stroke();
+ }
+ ctx.fillStyle='#18324b';ctx.font='bold 15px Tahoma';ctx.fillText('แป้งที่เหลือ: '+rem.toFixed(1)+' หน่วย',42,266);
+}
+function drawChart(){
+ const w=chart.width,h=chart.height;g.clearRect(0,0,w,h);g.fillStyle='#fbfdfe';g.fillRect(0,0,w,h);
+ const L=64,R=24,T=24,B=52,pw=w-L-R,phh=h-T-B,maxT=Math.max(10,time,history.length?history[history.length-1].t:0);
+ g.font='14px Tahoma';g.strokeStyle='#e1eaf0';g.fillStyle='#60758a';g.lineWidth=1;
+ for(let i=0;i<=5;i++){let y=T+phh*i/5;g.beginPath();g.moveTo(L,y);g.lineTo(w-R,y);g.stroke();g.fillText((+food.value*(1-i/5)).toFixed(0),16,y+5)}
+ for(let i=0;i<=5;i++){let x=L+pw*i/5;g.beginPath();g.moveTo(x,T);g.lineTo(x,T+phh);g.stroke();g.fillText((maxT*i/5).toFixed(0),x-8,h-25)}
+ g.fillStyle='#18324b';g.font='bold 15px Tahoma';g.fillText('แป้ง (หน่วย)',L,16);g.fillText('เวลา (วินาทีจำลอง)',w/2-70,h-5);
+ const pts=history.concat([{t:time,r:remainingAt(time)}]);
+ function line(key,color){g.beginPath();g.strokeStyle=color;g.lineWidth=3;pts.forEach((p,i)=>{let x=L+(p.t/maxT)*pw,y=T+phh-(p[key]/+food.value)*phh;if(i===0)g.moveTo(x,y);else g.lineTo(x,y)});g.stroke()}
+ line('r','#087f8c');
+ g.beginPath();g.strokeStyle='#f47c67';g.lineWidth=3;pts.forEach((p,i)=>{let val=+food.value-p.r,x=L+(p.t/maxT)*pw,y=T+phh-(val/+food.value)*phh;if(i===0)g.moveTo(x,y);else g.lineTo(x,y)});g.stroke();
+}
+function render(){
+ updateLabels();let a=activity(),rem=remainingAt(time);
+ rateEl.textContent=Math.round(a*100)+'%';remainEl.textContent=rem.toFixed(1);elapsedEl.textContent=time.toFixed(1);
+ if(a>.75)statusEl.textContent='สภาวะนี้เหมาะต่อการทำงานของเอนไซม์ในแบบจำลอง สังเกตว่าแป้งลดลงค่อนข้างเร็ว';
+ else if(a>.3)statusEl.textContent='เอนไซม์ทำงานได้บางส่วน ลองปรับอุณหภูมิหรือ pH แล้วเปรียบเทียบกราฟ';
+ else statusEl.textContent='กิจกรรมเอนไซม์ต่ำในสภาวะนี้ การย่อยจึงช้ามากในแบบจำลอง';
+ drawScene();drawChart();
+}
+function tick(now){if(!running)return;if(!last)last=now;let dt=Math.min((now-last)/1000,.1);last=now;time+=dt*4;if(!history.length||time-history[history.length-1].t>=.25)history.push({t:time,r:remainingAt(time)});if(history.length>300)history.shift();if(remainingAt(time)<.1){running=false;statusEl.textContent='จำลองเสร็จแล้ว: แป้งถูกย่อยเกือบหมดในแบบจำลอง กดเริ่มใหม่เพื่อทดลองเงื่อนไขอื่น';}render();if(running)raf=requestAnimationFrame(tick)}
+function reset(){running=false;if(raf)cancelAnimationFrame(raf);time=0;last=0;history=[{t:0,r:+food.value}];render();statusEl.textContent='เริ่มต้นใหม่แล้ว: ปรับตัวแปรและกด “เริ่มจำลอง”'}
+[temp,ph,food].forEach(el=>el.addEventListener('input',()=>{running=false;time=0;last=0;history=[{t:0,r:+food.value}];render();statusEl.textContent='ปรับตัวแปรแล้ว พร้อมเริ่มทดลองภายใต้เงื่อนไขใหม่'}));
+document.getElementById('runBtn').addEventListener('click',()=>{if(running){running=false;document.getElementById('runBtn').textContent='▶ เริ่มจำลอง';statusEl.textContent='หยุดชั่วคราวแล้ว';}else{running=true;last=0;document.getElementById('runBtn').textContent='Ⅱ หยุดชั่วคราว';raf=requestAnimationFrame(tick)}});
+document.getElementById('resetBtn').addEventListener('click',()=>{document.getElementById('runBtn').textContent='▶ เริ่มจำลอง';reset()});
+document.getElementById('quiz').addEventListener('submit',e=>{e.preventDefault();const answers={q1:'b',q2:'c',q3:'a',q4:'a',q5:'b'};let score=0;for(let i=1;i<=5;i++){let selected=document.querySelector('input[name="q'+i+'"]:checked'),f=document.getElementById('f'+i);if(selected&&selected.value===answers['q'+i]){score++;f.textContent='ถูกต้อง ✓';f.className='feedback correct'}else{f.textContent='ยังไม่ถูก — ดูเฉลยด้านล่างเพื่อทบทวน';f.className='feedback wrong'}}let s=document.getElementById('score');s.style.display='block';s.textContent='คะแนนของคุณ: '+score+'/5 ข้อ';document.getElementById('answerkey').classList.add('show')});
+document.getElementById('showAnswers').addEventListener('click',()=>document.getElementById('answerkey').classList.toggle('show'));
+history=[{t:0,r:+food.value}];render();
+</script>
+</body></html>
